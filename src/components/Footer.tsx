@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, Github, ExternalLink } from "lucide-react";
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -24,24 +24,38 @@ export const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
-              <li><a href="#home" className="text-primary-foreground/80 hover:text-accent transition-colors">Home</a></li>
-              <li><a href="#shop" className="text-primary-foreground/80 hover:text-accent transition-colors">Shop</a></li>
-              <li><a href="#calculator" className="text-primary-foreground/80 hover:text-accent transition-colors">Calculator</a></li>
-              <li><a href="#about" className="text-primary-foreground/80 hover:text-accent transition-colors">About</a></li>
-              <li><a href="#contact" className="text-primary-foreground/80 hover:text-accent transition-colors">Contact</a></li>
+              <li><a href="/" className="text-primary-foreground/80 hover:text-accent transition-colors">Home</a></li>
+              <li><a href="/#shop" className="text-primary-foreground/80 hover:text-accent transition-colors">Shop</a></li>
+              <li><a href="/calculator" className="text-primary-foreground/80 hover:text-accent transition-colors">Calculator</a></li>
+              <li><a href="/#about" className="text-primary-foreground/80 hover:text-accent transition-colors">About</a></li>
+              <li><a href="/#contact" className="text-primary-foreground/80 hover:text-accent transition-colors">Contact</a></li>
             </ul>
           </div>
 
-          {/* Services */}
+          {/* Services & GitHub */}
           <div>
             <h4 className="font-semibold mb-4">Services</h4>
-            <ul className="space-y-2">
+            <ul className="space-y-2 mb-6">
               <li><span className="text-primary-foreground/80">Tax Return Filing</span></li>
               <li><span className="text-primary-foreground/80">Home Office Deductions</span></li>
               <li><span className="text-primary-foreground/80">Solar Tax Benefits</span></li>
               <li><span className="text-primary-foreground/80">Tax Calculators</span></li>
               <li><span className="text-primary-foreground/80">Expert Support</span></li>
             </ul>
+            
+            <div className="border-t border-primary-foreground/20 pt-4">
+              <h5 className="font-semibold mb-3 text-accent">Open Source</h5>
+              <a 
+                href="https://github.com/TaxEasy-ZA/taxeasy-za-2025" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center space-x-2 text-primary-foreground/80 hover:text-accent transition-colors group"
+              >
+                <Github className="w-4 h-4" />
+                <span className="text-sm">Calculator Code</span>
+                <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+              </a>
+            </div>
           </div>
 
           {/* Contact Info */}

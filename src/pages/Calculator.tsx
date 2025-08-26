@@ -10,7 +10,9 @@ import {
   Languages, 
   Clock,
   Shield,
-  Star
+  Star,
+  Github,
+  ExternalLink
 } from "lucide-react";
 
 const Calculator = () => {
@@ -168,7 +170,7 @@ const Calculator = () => {
             </div>
 
             {/* Additional Info */}
-            <div className="mt-12 text-center">
+            <div className="mt-12 space-y-6">
               <Card className="bg-primary text-primary-foreground">
                 <CardContent className="p-6">
                   <h4 className="text-xl font-semibold mb-3">Why Choose Our Professional Report?</h4>
@@ -177,6 +179,29 @@ const Calculator = () => {
                     designed to help you maximize your refund while ensuring full SARS compliance. 
                     Over 10,000 South Africans have successfully used our reports to file their taxes.
                   </p>
+                </CardContent>
+              </Card>
+
+              {/* Open Source Notice */}
+              <Card className="bg-accent/10 border-accent/20">
+                <CardContent className="p-6 text-center">
+                  <div className="flex items-center justify-center space-x-2 mb-3">
+                    <Github className="w-5 h-5 text-accent" />
+                    <h4 className="text-lg font-semibold text-foreground">Open Source Calculator</h4>
+                  </div>
+                  <p className="text-muted-foreground mb-4">
+                    Our tax calculator is open source and available on GitHub. 
+                    Transparency in tax calculations you can trust.
+                  </p>
+                  <a 
+                    href="https://github.com/TaxEasy-ZA/taxeasy-za-2025" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center space-x-2 text-accent hover:text-accent/80 transition-colors font-medium"
+                  >
+                    <span>View Source Code</span>
+                    <ExternalLink className="w-4 h-4" />
+                  </a>
                 </CardContent>
               </Card>
             </div>
