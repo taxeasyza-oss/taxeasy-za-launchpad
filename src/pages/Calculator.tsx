@@ -3,6 +3,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
+import { SEOHead } from "@/components/SEOHead";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
+import { useState } from "react";
 import { 
   FileText, 
   Download, 
@@ -16,6 +19,8 @@ import {
 } from "lucide-react";
 
 const Calculator = () => {
+  const [isProcessing, setIsProcessing] = useState(false);
+  
   const reportFeatures = [
     "Detailed 2025 SARS-compliant PDF report",
     "Complete breakdown of deductions & rebates",
@@ -28,15 +33,24 @@ const Calculator = () => {
   ];
 
   const handleGenerateReport = () => {
+    setIsProcessing(true);
     // PayFast integration would go here
-    alert('Redirecting to secure PayFast checkout for R99 payment...');
     setTimeout(() => {
+      alert("Redirecting to secure PayFast checkout for R99 payment...");
+      setIsProcessing(false);
       window.open('https://www.payfast.co.za', '_blank');
-    }, 1000);
+    }, 1500);
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <>
+      <SEOHead 
+        title="Free South African Tax Calculator 2025 | TaxEasy_ZA"
+        description="Calculate your 2025 South African tax return for free. Income tax, VAT, and capital gains calculators with current SARS rates. Get your R99 professional PDF report."
+        keywords="south african tax calculator 2025, free tax calculator, SARS tax calculator, income tax calculator, VAT calculator, capital gains tax, tax return calculator"
+        canonical="https://taxeasyza.co.za/calculator"
+      />
+      <div className="min-h-screen bg-background">
       <Navigation />
       
       {/* Page Header */}
@@ -152,10 +166,20 @@ const Calculator = () => {
                     size="lg"
                     className="w-full text-lg font-semibold mb-4 group relative overflow-hidden"
                     onClick={handleGenerateReport}
+                    disabled={isProcessing}
                   >
-                    <Download className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
-                    Generate My R99 Report
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                    {isProcessing ? (
+                      <>
+                        <LoadingSpinner size="sm" className="mr-2" />
+                        Processing Payment...
+                      </>
+                    ) : (
+                      <>
+                        <Download className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
+                        Generate My R99 Report
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                      </>
+                    )}
                   </Button>
                   
                   <div className="text-center text-sm text-muted-foreground">
@@ -214,7 +238,8 @@ const Calculator = () => {
       </section>
 
       <Footer />
-    </div>
+      </div>
+    </>
   );
 };
 

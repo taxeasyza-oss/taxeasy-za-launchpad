@@ -3,9 +3,42 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { Mail, Phone, MapPin, Clock, MessageCircle, CreditCard } from "lucide-react";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
+import { useFormValidation } from "@/hooks/useFormValidation";
+import { Mail, Phone, MapPin, Clock, MessageCircle, CreditCard, CheckCircle } from "lucide-react";
+import { useState } from "react";
 
 export const Contact = () => {
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  
+  const { formData, updateField, validateForm, resetForm, isSubmitting, setIsSubmitting } = useFormValidation({
+    firstName: { value: "", error: "", rules: { required: true, minLength: 2 } },
+    lastName: { value: "", error: "", rules: { required: true, minLength: 2 } },
+    email: { value: "", error: "", rules: { required: true, email: true } },
+    subject: { value: "", error: "", rules: { required: true, minLength: 5 } },
+    message: { value: "", error: "", rules: { required: true, minLength: 20, maxLength: 1000 } }
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsSubmitting(true);
+    
+    // Simulate API call
+    setTimeout(() => {
+      setIsSubmitted(true);
+      setIsSubmitting(false);
+      resetForm();
+      
+      // Reset success message after 5 seconds
+      setTimeout(() => setIsSubmitted(false), 5000);
+    }, 2000);
+  };
+
   const contactMethods = [
     {
       icon: <Mail className="w-6 h-6" />,
@@ -66,60 +99,117 @@ export const Contact = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <form className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="firstName" className="block text-sm font-medium text-foreground mb-2">
-                      First Name
-                    </label>
-                    <Input id="firstName" placeholder="Your first name" />
+              {isSubmitted ? (
+                <div className="text-center py-8 animate-fade-in">
+                  <CheckCircle className="w-16 h-16 text-accent mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold text-foreground mb-2">Message Sent!</h3>
+                  <p className="text-muted-foreground">Thank you for contacting us. We'll get back to you within 24 hours.</p>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="firstName" className="block text-sm font-medium text-foreground mb-2">
+                        First Name *
+                      </label>
+                      <Input 
+                        id="firstName" 
+                        placeholder="Your first name"
+                        value={formData.firstName.value}
+                        onChange={(e) => updateField("firstName", e.target.value)}
+                        className={formData.firstName.error ? "border-destructive" : ""}
+                      />
+                      {formData.firstName.error && (
+                        <p className="text-destructive text-sm mt-1">{formData.firstName.error}</p>
+                      )}
+                    </div>
+                    <div>
+                      <label htmlFor="lastName" className="block text-sm font-medium text-foreground mb-2">
+                        Last Name *
+                      </label>
+                      <Input 
+                        id="lastName" 
+                        placeholder="Your last name"
+                        value={formData.lastName.value}
+                        onChange={(e) => updateField("lastName", e.target.value)}
+                        className={formData.lastName.error ? "border-destructive" : ""}
+                      />
+                      {formData.lastName.error && (
+                        <p className="text-destructive text-sm mt-1">{formData.lastName.error}</p>
+                      )}
+                    </div>
                   </div>
+                  
                   <div>
-                    <label htmlFor="lastName" className="block text-sm font-medium text-foreground mb-2">
-                      Last Name
+                    <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
+                      Email Address *
                     </label>
-                    <Input id="lastName" placeholder="Your last name" />
+                    <Input 
+                      id="email" 
+                      type="email" 
+                      placeholder="your.email@example.com"
+                      value={formData.email.value}
+                      onChange={(e) => updateField("email", e.target.value)}
+                      className={formData.email.error ? "border-destructive" : ""}
+                    />
+                    {formData.email.error && (
+                      <p className="text-destructive text-sm mt-1">{formData.email.error}</p>
+                    )}
                   </div>
-                </div>
-                
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
-                    Email Address
-                  </label>
-                  <Input id="email" type="email" placeholder="your.email@example.com" />
-                </div>
-                
-                <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-foreground mb-2">
-                    Subject
-                  </label>
-                  <Input id="subject" placeholder="How can we help you?" />
-                </div>
-                
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
-                    Message
-                  </label>
-                  <Textarea 
-                    id="message" 
-                    placeholder="Tell us about your tax needs or questions..."
-                    className="min-h-[120px]"
-                  />
-                </div>
+                  
+                  <div>
+                    <label htmlFor="subject" className="block text-sm font-medium text-foreground mb-2">
+                      Subject *
+                    </label>
+                    <Input 
+                      id="subject" 
+                      placeholder="How can we help you?"
+                      value={formData.subject.value}
+                      onChange={(e) => updateField("subject", e.target.value)}
+                      className={formData.subject.error ? "border-destructive" : ""}
+                    />
+                    {formData.subject.error && (
+                      <p className="text-destructive text-sm mt-1">{formData.subject.error}</p>
+                    )}
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
+                      Message * <span className="text-muted-foreground text-xs">({formData.message.value.length}/1000)</span>
+                    </label>
+                    <Textarea 
+                      id="message" 
+                      placeholder="Tell us about your tax needs or questions..."
+                      className={`min-h-[120px] ${formData.message.error ? "border-destructive" : ""}`}
+                      value={formData.message.value}
+                      onChange={(e) => updateField("message", e.target.value)}
+                      maxLength={1000}
+                    />
+                    {formData.message.error && (
+                      <p className="text-destructive text-sm mt-1">{formData.message.error}</p>
+                    )}
+                  </div>
 
-                <Button 
-                  variant="hero" 
-                  className="w-full group"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    // Add toast notification for demo
-                    alert('Message sent! We\'ll get back to you within 24 hours.');
-                  }}
-                >
-                  <MessageCircle className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
-                  Send Message
-                </Button>
-              </form>
+                  <Button 
+                    type="submit"
+                    variant="hero" 
+                    className="w-full group"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <LoadingSpinner size="sm" className="mr-2" />
+                        Sending Message...
+                      </>
+                    ) : (
+                      <>
+                        <MessageCircle className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
+                        Send Message
+                      </>
+                    )}
+                  </Button>
+                </form>
+              )}
             </CardContent>
           </Card>
 
