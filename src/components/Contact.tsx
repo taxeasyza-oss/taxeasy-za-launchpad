@@ -107,7 +107,16 @@ export const Contact = () => {
                   />
                 </div>
 
-                <Button variant="hero" className="w-full">
+                <Button 
+                  variant="hero" 
+                  className="w-full group"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    // Add toast notification for demo
+                    alert('Message sent! We\'ll get back to you within 24 hours.');
+                  }}
+                >
+                  <MessageCircle className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
                   Send Message
                 </Button>
               </form>
@@ -166,18 +175,30 @@ export const Contact = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  <a href="#" className="block text-primary hover:text-accent transition-colors">
+                  <button 
+                    onClick={() => window.location.href = '/calculator'}
+                    className="block w-full text-left text-primary hover:text-accent transition-colors hover:bg-accent/5 p-2 rounded"
+                  >
                     → How do I claim home office deductions?
-                  </a>
-                  <a href="#" className="block text-primary hover:text-accent transition-colors">
+                  </button>
+                  <button 
+                    onClick={() => window.location.href = '/calculator'}
+                    className="block w-full text-left text-primary hover:text-accent transition-colors hover:bg-accent/5 p-2 rounded"
+                  >
                     → What are the 2025 tax year changes?
-                  </a>
-                  <a href="#" className="block text-primary hover:text-accent transition-colors">
+                  </button>
+                  <button 
+                    onClick={() => window.location.href = '/calculator'}
+                    className="block w-full text-left text-primary hover:text-accent transition-colors hover:bg-accent/5 p-2 rounded"
+                  >
                     → How does the solar tax benefit work?
-                  </a>
-                  <a href="#" className="block text-primary hover:text-accent transition-colors">
+                  </button>
+                  <button 
+                    onClick={() => document.getElementById('shop')?.scrollIntoView({ behavior: 'smooth' })}
+                    className="block w-full text-left text-primary hover:text-accent transition-colors hover:bg-accent/5 p-2 rounded"
+                  >
                     → Is the toolkit updated for 2025?
-                  </a>
+                  </button>
                 </div>
               </CardContent>
             </Card>

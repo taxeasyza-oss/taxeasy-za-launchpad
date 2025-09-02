@@ -125,9 +125,26 @@ export const ProductShowcase = () => {
 
                 <Button 
                   variant={product.popular ? "hero" : "default"} 
-                  className="w-full"
+                  className="w-full group"
+                  onClick={() => {
+                    if (product.price === "Free") {
+                      window.location.href = '/calculator';
+                    } else {
+                      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
                 >
-                  {product.price === "Free" ? "Access Free Calculator" : "Get Instant Access"}
+                  {product.price === "Free" ? (
+                    <>
+                      <Calculator className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
+                      Access Free Calculator
+                    </>
+                  ) : (
+                    <>
+                      <Download className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
+                      Get Instant Access
+                    </>
+                  )}
                 </Button>
               </CardContent>
             </Card>

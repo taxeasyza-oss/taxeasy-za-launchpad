@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Users, Award, Shield } from "lucide-react";
+import { CheckCircle, Users, Award, Shield, Download, Calculator } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
 
 export const Hero = () => {
@@ -36,10 +36,22 @@ export const Hero = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 mb-12">
-              <Button variant="accent" size="lg" className="text-lg px-8 py-4">
+              <Button 
+                variant="accent" 
+                size="lg" 
+                className="text-lg px-8 py-4 group"
+                onClick={() => document.getElementById('shop')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                <Download className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
                 Download Toolkit - R129
               </Button>
-              <Button variant="accent-outline" size="lg" className="text-lg px-8 py-4">
+              <Button 
+                variant="accent-outline" 
+                size="lg" 
+                className="text-lg px-8 py-4 group"
+                onClick={() => window.location.href = '/calculator'}
+              >
+                <Calculator className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
                 Free Calculator
               </Button>
             </div>

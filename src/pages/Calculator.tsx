@@ -29,7 +29,10 @@ const Calculator = () => {
 
   const handleGenerateReport = () => {
     // PayFast integration would go here
-    window.open('https://www.payfast.co.za', '_blank');
+    alert('Redirecting to secure PayFast checkout for R99 payment...');
+    setTimeout(() => {
+      window.open('https://www.payfast.co.za', '_blank');
+    }, 1000);
   };
 
   return (
@@ -147,11 +150,12 @@ const Calculator = () => {
                   <Button 
                     variant="hero" 
                     size="lg"
-                    className="w-full text-lg font-semibold mb-4"
+                    className="w-full text-lg font-semibold mb-4 group relative overflow-hidden"
                     onClick={handleGenerateReport}
                   >
-                    <Download className="w-5 h-5 mr-2" />
+                    <Download className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
                     Generate My R99 Report
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                   </Button>
                   
                   <div className="text-center text-sm text-muted-foreground">
