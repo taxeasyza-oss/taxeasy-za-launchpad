@@ -12,15 +12,18 @@ export const ProductShowcase = () => {
       originalPrice: "R199",
       description: "Everything you need for a stress-free tax season",
       features: [
-        "SARS return guide",
-        "Home office calculator",
-        "Solar tax benefits",
-        "Multilingual support",
-        "Expert email support",
-        "Lifetime updates"
+        "Step-by-step SARS return guide (PDF)",
+        "Home office deduction calculator",
+        "Solar tax benefits §12B guide",
+        "Multilingual support (EN, AF, ZU)",
+        "Expert email support included",
+        "Lifetime updates & access",
+        "Mobile-friendly tools",
+        "Professional tax planning tips"
       ],
       popular: true,
-      icon: <Download className="w-6 h-6" />
+      icon: <Download className="w-6 h-6" />,
+      savings: "Save R1000s in missed deductions"
     },
     {
       id: 2,
@@ -29,15 +32,18 @@ export const ProductShowcase = () => {
       originalPrice: "",
       description: "Calculate your tax obligations instantly",
       features: [
-        "Income tax calculator",
-        "VAT calculator",
-        "Capital gains calculator",
-        "Real-time SARS rates",
-        "Export results",
-        "Mobile optimized"
+        "2025 income tax calculator",
+        "VAT calculator with rates",
+        "Capital gains tax calculator",
+        "Real-time SARS tax tables",
+        "Export results to PDF",
+        "Mobile optimized interface",
+        "Multilingual interface",
+        "No registration required"
       ],
       popular: false,
-      icon: <Calculator className="w-6 h-6" />
+      icon: <Calculator className="w-6 h-6" />,
+      savings: "100% Free to use"
     },
     {
       id: 3,
@@ -46,15 +52,18 @@ export const ProductShowcase = () => {
       originalPrice: "R149",
       description: "Professional insights and strategies",
       features: [
-        "Tax planning strategies",
-        "Deduction optimization",
-        "SARS audit preparation",
-        "Business tax guide",
-        "Investment tax tips",
-        "Q&A sessions"
+        "Advanced tax planning strategies",
+        "Deduction optimization guide",
+        "SARS audit preparation checklist",
+        "Business tax compliance guide",
+        "Investment tax optimization",
+        "Q&A with tax experts",
+        "Quarterly updates included",
+        "Email support for 6 months"
       ],
       popular: false,
-      icon: <Book className="w-6 h-6" />
+      icon: <Book className="w-6 h-6" />,
+      savings: "Professional advice at fraction of cost"
     }
   ];
 
@@ -125,7 +134,7 @@ export const ProductShowcase = () => {
 
                 <Button 
                   variant={product.popular ? "hero" : "default"} 
-                  className="w-full group"
+                  className="w-full group relative overflow-hidden"
                   onClick={() => {
                     if (product.price === "Free") {
                       window.location.href = '/calculator';
@@ -145,7 +154,16 @@ export const ProductShowcase = () => {
                       Get Instant Access
                     </>
                   )}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
                 </Button>
+                
+                {product.savings && (
+                  <div className="mt-3 text-center">
+                    <span className="text-xs text-accent font-medium bg-accent/10 px-2 py-1 rounded-full">
+                      💡 {product.savings}
+                    </span>
+                  </div>
+                )}
               </CardContent>
             </Card>
           ))}

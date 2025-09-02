@@ -8,11 +8,21 @@ export const Navigation = () => {
 
   const navigationItems = [
     { name: "Home", href: "/" },
-    { name: "Shop", href: "/#shop" },
+    { name: "Products", href: "/#shop" },
     { name: "Calculator", href: "/calculator" },
     { name: "About", href: "/#about" },
     { name: "Contact", href: "/#contact" },
   ];
+
+  const handleSmoothScroll = (href: string) => {
+    if (href.includes('#')) {
+      const targetId = href.split('#')[1];
+      const element = document.getElementById(targetId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
@@ -38,13 +48,13 @@ export const Navigation = () => {
                     {item.name}
                   </Link>
                 ) : (
-                  <a
+                  <button
                     key={item.name}
-                    href={item.href}
-                    className="text-foreground hover:text-accent px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                    onClick={() => handleSmoothScroll(item.href)}
+                    className="text-foreground hover:text-accent px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 hover:bg-accent/10"
                   >
                     {item.name}
-                  </a>
+                  </button>
                 )
               ))}
             </div>
@@ -52,7 +62,12 @@ export const Navigation = () => {
 
           {/* Desktop CTA */}
           <div className="hidden md:block">
-            <Button variant="accent" size="sm">
+            <Button 
+              variant="accent" 
+              size="sm"
+              onClick={() => handleSmoothScroll("/#shop")}
+              className="hover:scale-105 transition-transform"
+            >
               Get Toolkit - R129
             </Button>
           </div>
@@ -84,18 +99,27 @@ export const Navigation = () => {
                     {item.name}
                   </Link>
                 ) : (
-                  <a
+                  <button
                     key={item.name}
-                    href={item.href}
-                    className="text-foreground hover:text-accent block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200"
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={() => {
+                      handleSmoothScroll(item.href);
+                      setIsMenuOpen(false);
+                    }}
+                    className="text-foreground hover:text-accent block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 w-full text-left hover:bg-accent/10"
                   >
                     {item.name}
-                  </a>
+                  </button>
                 )
               ))}
               <div className="px-3 py-2">
-                <Button variant="accent" className="w-full">
+                <Button 
+                  variant="accent" 
+                  className="w-full"
+                  onClick={() => {
+                    handleSmoothScroll("/#shop");
+                    setIsMenuOpen(false);
+                  }}
+                >
                   Get Toolkit - R129
                 </Button>
               </div>
